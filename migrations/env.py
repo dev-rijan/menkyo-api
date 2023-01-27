@@ -2,6 +2,7 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+import os
 
 from alembic import context
 
@@ -18,12 +19,21 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+from app.models.collection import Collection
+from app.models.base import Base
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+def get_url():
+    user = os.getenv("POSTGRES_USER", "admin")
+    password = os.getenv("POSTGRES_PASSWORD", "admin")
+    server = os.getenv("POSTGRES_SERVER", "localhost:5432")
+    db = os.getenv("POSTGRES_DB", "f_api")
+    return f"postgresql://{user}:{password}@{server}/{db}"
 
 
 def run_migrations_offline() -> None:
@@ -38,7 +48,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = get_url()
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -57,8 +67,10 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    configuration = config.get_section(config.config_ini_section)
+    configuration["sqlalchemy.url"] = get_url()
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+       configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
