@@ -11,6 +11,7 @@ fastapi = "^0.89.1"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 alembic = "^1.9.2"
 psycopg2 = "^2.9.5"
+pydantic = {extras = ["dotenv"], version = "^1.10.4"}
 
 
 [build-system]
