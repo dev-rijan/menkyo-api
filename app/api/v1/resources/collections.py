@@ -21,3 +21,23 @@ def index(
     """
     collections = collection.get_all(db=db, skip=skip, limit=limit)
     return collections
+
+
+@router.get("/{slug}")
+def get_by_slug(
+    slug: str,
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+) -> Any:
+    """
+    Retrieve collections.
+    """
+    collections = collection.get_by_slug(
+        slug=slug,
+        db=db,
+        skip=skip,
+        limit=limit
+    )
+
+    return collections
