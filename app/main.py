@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.settings import settings
+from app.api.v1.api import api_router
 
 
 def create_app() -> FastAPI:
@@ -9,6 +10,6 @@ def create_app() -> FastAPI:
     async def root():
         return {"message": "Hello World"}
 
-    print(settings)
+    app.include_router(api_router)
 
     return app
