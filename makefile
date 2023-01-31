@@ -4,3 +4,5 @@ run:
 upgrade:
 	poetry run alembic upgrade head
 
+migration:
+	poetry run alembic revision --autogenerate -m "$(message)"
