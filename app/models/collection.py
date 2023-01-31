@@ -1,5 +1,6 @@
 
 from sqlalchemy import Column, Integer, String, SmallInteger
+from sqlalchemy.orm import relationship
 
 from app.models.base import Base
 
@@ -13,3 +14,6 @@ class Collection(Base):
     title = Column(String, nullable=False)
     image = Column(String, nullable=False)
     description = Column(String, nullable=False)
+
+    questions = relationship(
+        "Question", secondary="question_collections", back_populates='collections')

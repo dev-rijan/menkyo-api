@@ -19,5 +19,5 @@ def index(
     """
     Retrieve collections.
     """
-    collections = collection.get_all(db=db)
+    collections = collection.get_all(db=db, skip=skip, limit=limit)
     return collections
