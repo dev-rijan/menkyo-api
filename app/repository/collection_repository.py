@@ -5,7 +5,8 @@ from app.models.collection import Collection
 
 class CollectionRepository(BaseRepository[Collection]):
     def get_by_slug(
-        self, slug: str,
+        self,
+        slug: str,
         db: Session
     ) -> Collection:
         return db.query(self.model)\
