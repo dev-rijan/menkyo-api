@@ -1,8 +1,8 @@
 """create collections table
 
-Revision ID: e44910598b85
+Revision ID: ba9ec99f7d0d
 Revises: 
-Create Date: 2023-01-27 16:32:29.094090
+Create Date: 2023-01-31 11:47:02.533175
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e44910598b85'
+revision = 'ba9ec99f7d0d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('type', sa.SmallInteger(), nullable=False),
     sa.Column('slug', sa.String(), nullable=False),
+    sa.Column('title', sa.String(), nullable=False),
     sa.Column('image', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
