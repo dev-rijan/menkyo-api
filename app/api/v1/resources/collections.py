@@ -1,11 +1,12 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.repository.collection_repository import collection
 from app.api import deps
-from app.schemas.collection import Collection as CollectionSchema
+from app.schemas.collection import Collection as CollectionSchema, CollectionQuestion
+
 
 router = APIRouter()
 
@@ -23,21 +24,23 @@ def index(
     return collections
 
 
-@router.get("/{slug}")
+@router.get("/{slug}", response_model=CollectionQuestion)
 def get_by_slug(
     slug: str,
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-    limit: int = 100,
+    db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Retrieve collections.
     """
-    collections = collection.get_by_slug(
+    collection_question = collection.get_by_slug(
         slug=slug,
-        db=db,
-        skip=skip,
-        limit=limit
+        db=db
     )
 
-    return collections
+    if not collection_question:
+        raise HTTPException(
+            status_code=404,
+            detail="The collection with this slug does not exist in the system.",
+        )
+
+    return collection_question
