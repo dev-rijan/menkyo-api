@@ -1,6 +1,7 @@
 
 from sqlalchemy import Column, Integer, String, SmallInteger
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import object_session
 
 from app.models.base import Base
 
