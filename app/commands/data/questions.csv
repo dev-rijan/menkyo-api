@@ -1,0 +1,5 @@
+collection_slug,title,description,answer
+"slug1,slug2",question1,question description1,1
+slug1,question2,question description2,1
+slug1,question3,question description3,0
+"slug1,slug2",question4,question description4,1
