@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "api"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["rijan <rijanadhikari@gmail.com>"]
 readme = "README.md"
+
+[tool.poetry.scripts]
+cli = "app.commands.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,6 +15,7 @@ uvicorn = {extras = ["standard"], version = "^0.20.0"}
 alembic = "^1.9.2"
 psycopg2 = "^2.9.5"
 pydantic = {extras = ["dotenv"], version = "^1.10.4"}
+typer = {extras = ["all"], version = "^0.7.0"}
 
 
 [tool.poetry.group.dev.dependencies]
