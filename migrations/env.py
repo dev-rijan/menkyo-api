@@ -1,3 +1,4 @@
+from app.models import Base
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -19,7 +20,6 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from app.models import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -27,11 +27,12 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+
 def get_url():
     user = os.getenv("POSTGRES_USER", "admin")
     password = os.getenv("POSTGRES_PASSWORD", "admin")
-    server = os.getenv("POSTGRES_SERVER", "localhost:5432")
-    db = os.getenv("POSTGRES_DB", "f_api")
+    server = os.getenv("POSTGRES_SERVER", "postgres:5432")
+    db = os.getenv("POSTGRES_DB", "menkyo")
     return f"postgresql://{user}:{password}@{server}/{db}"
 
 
@@ -69,7 +70,7 @@ def run_migrations_online() -> None:
     configuration = config.get_section(config.config_ini_section)
     configuration["sqlalchemy.url"] = get_url()
     connectable = engine_from_config(
-       configuration,
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
