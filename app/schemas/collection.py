@@ -11,10 +11,10 @@ class Collection(BaseModel):
 
 
 class Question(BaseModel):
-    id: str
+    id: int
     title: str
     description: str
-    answer: str
+    answer: bool
 
     class Config:
         orm_mode = True
